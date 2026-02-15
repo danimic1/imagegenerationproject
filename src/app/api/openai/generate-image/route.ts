@@ -3,10 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "edge";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 export async function POST(req: NextRequest) {
   try {
     const { prompt } = await req.json();
@@ -17,6 +13,10 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
 
     // Generate 4 images in parallel
     const imagePromises = Array(4)
